@@ -21,5 +21,5 @@ $result = preg_replace_callback($regexp,
 echo "<b>Результат замены:</b> {$result}<br/>";
 
 echo "<br/><a href='./task 2/index2a.php'><h2>Задание №2(пункт а)</h2></a>";
-
+echo "<a href='task 2/index2b(file 1).php'><h2>Задание №2(пункт b)</h2></a>";
 ?>

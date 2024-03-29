@@ -17,7 +17,7 @@
 <?php
 if(isset($_POST["TextInput"]))
 {
-    $text = strip_tags($_POST['TextInput']);
+    $text = $_POST['TextInput'];
 }
 else {$text ='';}
 $regexp = '/[a-zа-яё0-9]+/ui';
