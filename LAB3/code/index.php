@@ -19,4 +19,7 @@ $result = preg_replace_callback($regexp,
     {return pow($matches[0], 3);},
     $text);
 echo "<b>Результат замены:</b> {$result}<br/>";
+
+echo "<br/><a href='./task 2/index2a.php'><h2>Задание №2(пункт а)</h2></a>";
+
 ?>
