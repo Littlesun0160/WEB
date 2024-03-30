@@ -25,6 +25,6 @@ $matches = [];
 $count = preg_match_all($regexp, $text, $matches);
 ?>
 <p>Количество слов в тексте: <?php echo $count?></p>
-<p>Длина текста: <?php echo strlen($text)?></p>
+<p>Длина текста: <?php echo mb_strlen($text)?></p>
 </body>
 </html>
