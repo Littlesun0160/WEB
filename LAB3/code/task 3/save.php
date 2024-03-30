@@ -7,8 +7,8 @@ $category = $_POST['category'];
 $name = $_POST['name'];
 $desc = $_POST['description'];
 $email = $_POST['email'];
-$filePath = "{$category}/{$name}.txt";
-if(false===file_put_contents($filePath, $desc) || false===file_put_contents($filePath, $email))
+$filePath = "categories/{$category}/{$name}.txt";
+if(false===file_put_contents($filePath, [$desc,"\n",$email]))
 {
     throw new Exception('Something went wrong');
 }

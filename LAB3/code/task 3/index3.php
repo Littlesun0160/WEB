@@ -24,11 +24,36 @@
         </p>
         <p>
             <label for "description">Описание:</label>
-            <textarea name="description" required rows="3" placeholder="Опишите питомца"></textarea>
+            <textarea name="description"rows="3" placeholder="Опишите питомца"></textarea>
         </p>
 
         <p></p><input type="submit" value="Отправить"></p>
     </form>
-
+    <table border="1" width="60%" cellpadding="5">
+        <thead>
+        <th>Категория</th>
+        <th>Эл.почта</th>
+        <th>Кличка</th>
+        <th>Описание</th>
+        </thead>
+        <tbody>
+        <?php
+        $categories = ['cats', 'dogs', 'other'];
+        foreach ($categories as $category)
+        {
+            $files = scandir("categories/$category");
+            foreach ($files as $file)
+            {
+                if ($file != "." && $file != '..')
+                {
+                    $Info = file("categories/$category/$file");
+                    $name = substr($file, 0, strlen($file) - 4);
+                    echo "<tr><td>$category</td><td>$Info[1]</td><td>$name</td><td>$Info[0]</td>";
+                }
+            }
+        }
+        ?>
+        </tbody>
+    </table>
 </body>
 </html>
