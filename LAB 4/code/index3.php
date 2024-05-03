@@ -13,7 +13,7 @@
         <label>
             <input name="email" type="email" required placeholder="Введите свой email">
         </label>
-        <label for "category">Категория: </label>
+        <label for "category"> Категория: </label>
         <label>
             <select  name="category" required>
                 <option disabled>Выберите категорию</option>
@@ -33,13 +33,12 @@
 
         <p><input type="submit" value="Отправить"></p>
     </form>
-        <?php
-        $categories = ['cats', 'dogs', 'other'];
 
+        <?php
         require __DIR__ . "/vendor/autoload.php";
-        $client = new \Google_Client();
+        $client = new Google_Client();
         $client->setApplicationName('Google Pets');
-        $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
+        $client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
         $client->setAccessType('offline');
         try
         {
@@ -52,36 +51,56 @@
         $service = new Google_Service_Sheets($client);
         $sheetID = "1sqD2bb63yP-HTXuHtXvBcv6_k_FcEtamjRtTdn731MY";
         ?>
-    <div class="table">
-        <table>
-            <thead>
-            <?php
-            $range1 = "Pets!A1:D1";
+
+    <table border="1" width="60%" cellpadding="5">
+        <thead>
+        <?php
+        $range1 = "Pets!A1:D1";
+        $result1 = null;
+        try
+        {
             $result1 = ($service->spreadsheets_values->get($sheetID, $range1))->getValues();
-            if (null != $result1) {
-                foreach ($result1 as $row) {
-                    foreach ($row as $item)
-                        echo "<th>$item</th>";
-                }
+        }
+        catch (\Google\Service\Exception $e)
+        {
+            echo "Ошибка при получении заголовков в таблицу\n";
+        }
+        if (null != $result1)
+        {
+            foreach ($result1 as $row)
+            {
+                foreach ($row as $item)
+                    echo "<th>$item</th>";
             }
-            ?>
-            </thead>
-            <tbody>
-            <?php
-            $range2 = "Pets!A2:D999";
+        }
+        ?>
+        </thead>
+        <tbody>
+        <?php
+        $range2 = "Pets!A2:D999";
+        $result2 = null;
+        try
+        {
             $result2 = ($service->spreadsheets_values->get($sheetID, $range2))->getValues();
-            if (null != $result2) {
-                foreach ($result2 as $row) {
-                    echo "<tr>";
-                    foreach ($row as $item) {
-                        echo "<td>" . $item . "</td>";
-                    }
-                    echo "</tr>";
+        }
+        catch (\Google\Service\Exception $e)
+        {
+            echo "Ошибка при получении данных в таблицу\n";
+        }
+        if (null != $result2)
+        {
+            foreach ($result2 as $row)
+            {
+                echo "<tr>";
+                foreach ($row as $item)
+                {
+                    echo "<td>", $item, "</td>";
                 }
+                echo "</tr>";
             }
-            ?>
-            </tbody>
-        </table>
-    </div>
+        }
+        ?>
+        </tbody>
+    </table>
 </body>
 </html>
