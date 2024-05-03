@@ -17,9 +17,9 @@
         <label>
             <select  name="category" required>
                 <option disabled>Выберите категорию</option>
-                <option value="cats">Кошечка</option>
-                <option value="dogs">Собачка</option>
-                <option value="other">Другой питомец</option>
+                <option value="Кот">Кошечка</option>
+                <option value="Собака">Собачка</option>
+                <option value="Другое">Другой питомец</option>
             </select>
         </label>
         <p>

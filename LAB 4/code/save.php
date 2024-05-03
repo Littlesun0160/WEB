@@ -1,10 +1,12 @@
 <?php
+
 function redirectToHome():void
 {
     header('Location:index3.php');
     exit();
 }
 
+ob_start();
 if(false===isset($_POST['email'],$_POST['category'],$_POST['name'],$_POST['description']))
 {
     redirectToHome();
@@ -14,10 +16,10 @@ $name = $_POST['name'];
 $desc = $_POST['description'];
 $email = $_POST['email'];
 
-require __DIR__ . "/vendor/autoload.php";
-$client = new Google_Client();
+require __DIR__ . '/vendor/autoload.php';
+$client = new \Google_Client();
 $client->setApplicationName('Google Pets');
-$client->setScopes([Google_Service_Sheets::SPREADSHEETS]);
+$client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
 $client->setAccessType('offline');
 try
 {
@@ -31,13 +33,13 @@ $service = new Google_Service_Sheets($client);
 $sheetID = "1sqD2bb63yP-HTXuHtXvBcv6_k_FcEtamjRtTdn731MY";
 
 $range = "Pets";
-$values = [$category, $email, $name, $desc];
+$values = [[$category, $name, $email, $desc],];
 $body = new Google_Service_Sheets_ValueRange(['values' => $values]);
-$params = ['valueInputOption'=>'RAW',
-        'insertDataOption'=>'INSERT_RAWS'];
+$row = sizeof(($service->spreadsheets_values->get($sheetID, $range))->getValues()) + 1;
+$params = ['valueInputOption'=>'RAW'];
 try
 {
-    $service->spreadsheets_values->append($sheetID, $range, $body, $params);
+    $service->spreadsheets_values->update($sheetID, 'Pets!A'.($row), $body, $params);
 }
 catch (\Google\Service\Exception $e)
 {
