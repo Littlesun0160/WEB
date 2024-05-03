@@ -29,17 +29,16 @@
 
         <p></p><input type="submit" value="Отправить"></p>
     </form>
-    <table border="1" width="60%" cellpadding="5">
-        <thead>
-        <th>Категория</th>
-        <th>Эл.почта</th>
-        <th>Кличка</th>
-        <th>Описание</th>
-        </thead>
-        <tbody>
         <?php
         require __DIR__ . "/vendor/autoload.php";
+        $client = new \Google_Client();
+        $client->setApplicationName('Google Pets');
+        $client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
+        $client->setAccessType('offline');
+        $client->setAuthConfig(__DIR__.'/web-lab4-422209-76913d7c4a42.json');
+        $service = new Google_Service_Sheets($client);
         $sheetId = "1sqD2bb63yP-HTXuHtXvBcv6_k_FcEtamjRtTdn731MY";
+
         $categories = ['cats', 'dogs', 'other'];
         foreach ($categories as $category)
         {
@@ -55,7 +54,5 @@
             }
         }
         ?>
-        </tbody>
-    </table>
 </body>
 </html>
