@@ -7,10 +7,35 @@ $category = $_POST['category'];
 $name = $_POST['name'];
 $desc = $_POST['description'];
 $email = $_POST['email'];
-$filePath = "categories/{$category}/{$name}.txt";
-if(false===file_put_contents($filePath, [$desc,"\n",$email]))
+
+require __DIR__ . "/vendor/autoload.php";
+$client = new \Google_Client();
+$client->setApplicationName('Google Pets');
+$client->setScopes([\Google_Service_Sheets::SPREADSHEETS]);
+$client->setAccessType('offline');
+try
 {
-    throw new Exception('Something went wrong');
+    $client->setAuthConfig(__DIR__ . '/web-lab4-422209-76913d7c4a42.json');
+}
+catch (\Google\Exception $e)
+{
+    echo "Ошибка\n";
+}
+$service = new Google_Service_Sheets($client);
+$sheetID = "1sqD2bb63yP-HTXuHtXvBcv6_k_FcEtamjRtTdn731MY";
+
+$range = "Pets";
+$values = [$category, $email, $name, $desc];
+$body = new Google_Service_Sheets_ValueRange(['values'=>$values]);
+$params = ['valueInputOption'=>'RAW'];
+$insert = ['insertDataOption'=>'INSERT_RAWS'];
+try
+{
+    $result = $service->spreadsheets_values->append($sheetID, $range, $body, $params, $insert);
+}
+catch (\Google\Service\Exception $e)
+{
+    echo "Ошибка!!";
 }
 redirectToHome();
 function redirectToHome():void
