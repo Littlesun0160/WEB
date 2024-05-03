@@ -51,8 +51,37 @@
         }
         $service = new Google_Service_Sheets($client);
         $sheetID = "1sqD2bb63yP-HTXuHtXvBcv6_k_FcEtamjRtTdn731MY";
-
         ?>
-
+    <div class="table">
+        <table>
+            <thead>
+            <?php
+            $range1 = "Pets!A1:D1";
+            $result1 = ($service->spreadsheets_values->get($sheetID, $range1))->getValues();
+            if (null != $result1) {
+                foreach ($result1 as $row) {
+                    foreach ($row as $item)
+                        echo "<th>$item</th>";
+                }
+            }
+            ?>
+            </thead>
+            <tbody>
+            <?php
+            $range2 = "Pets!A2:D999";
+            $result2 = ($service->spreadsheets_values->get($sheetID, $range2))->getValues();
+            if (null != $result2) {
+                foreach ($result2 as $row) {
+                    echo "<tr>";
+                    foreach ($row as $item) {
+                        echo "<td>" . $item . "</td>";
+                    }
+                    echo "</tr>";
+                }
+            }
+            ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

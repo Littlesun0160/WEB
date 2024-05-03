@@ -1,4 +1,10 @@
 <?php
+function redirectToHome():void
+{
+    header('Location:index3.php');
+    exit();
+}
+
 if(false===isset($_POST['email'],$_POST['category'],$_POST['name'],$_POST['description']))
 {
     redirectToHome();
@@ -26,21 +32,16 @@ $sheetID = "1sqD2bb63yP-HTXuHtXvBcv6_k_FcEtamjRtTdn731MY";
 
 $range = "Pets";
 $values = [$category, $email, $name, $desc];
-$body = new Google_Service_Sheets_ValueRange(['values'=>$values]);
-$params = ['valueInputOption'=>'RAW'];
-$insert = ['insertDataOption'=>'INSERT_RAWS'];
+$body = new Google_Service_Sheets_ValueRange();
+$body->setValues($values);
+$params = ['valueInputOption'=>'RAW',
+        'insertDataOption'=>'INSERT_RAWS'];
 try
 {
-    $result = $service->spreadsheets_values->append($sheetID, $range, $body, $params, $insert);
+    $result = $service->spreadsheets_values->append($sheetID, $range, $body, $params);
 }
 catch (\Google\Service\Exception $e)
 {
     echo "Ошибка!!";
-}
-redirectToHome();
-function redirectToHome():void
-{
-    header('Location:index3.php');
-    exit();
 }
 ?>
