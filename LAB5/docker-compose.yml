@@ -24,3 +24,4 @@ services:
       - '6603:3306'
     environment:
       MYSQL_ROOT_PASSWORD: byeworld
+      MYSQL_DATABASE: web
