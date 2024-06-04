@@ -17,5 +17,5 @@ $name = $_POST['name'];
 $desc = $_POST['description'];
 $email = $_POST['email'];
 $mysqli = extracted();
-$mysqli->query("INSERT INTO web.ad (category, title, description, email) VALUES ('$category', '$name', '$desc', 'email')");
+$mysqli->query("INSERT INTO web.ad (category, title, description, email) VALUES ('$category', '$name', '$desc', '$email')");
 redirectToHome();
