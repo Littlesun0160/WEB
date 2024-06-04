@@ -36,12 +36,10 @@
 
     <table border="1" width="60%" cellpadding="5">
         <thead>
-        <div>
-        <h>Категория</h>
-        <h>Кличка</h>
-        <h>Описание</h>
-        <h>Email</h>
-        </div>
+        <th>Категория</th>
+        <th>Эл.почта</th>
+        <th>Кличка</th>
+        <th>Описание</th>
         </thead>
         <tbody>
         <?php
@@ -50,10 +48,10 @@
         foreach ($sql->query("SELECT * FROM web.ad") as $row)
         {
             $category = $row['category'];
-            $name = $row['name'];
+            $name = $row['title'];
             $desc = $row['description'];
             $email = $row ['email'];
-            echo "<div><p>$category</p><p>$name</p><p>$desc</p><p>$email</p></div>";
+            echo "<tr><td>$category</td><td>$email</td><td>$name</td><td>$desc</td>";
         }
         ?>
         </tbody>

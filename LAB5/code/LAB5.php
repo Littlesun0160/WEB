@@ -7,7 +7,7 @@ $port = 6603;
 $password = 'byeworld';
 $database = 'web';
 
-$test = new mysqli($hostname, $username, $password, $database, $port);
+$test = new mysqli($hostname, $username, $password);
 
 if (mysqli_connect_errno())
 {
